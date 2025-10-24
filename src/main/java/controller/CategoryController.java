@@ -14,27 +14,40 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/search")
-    public List<Category> search(@RequestParam String keyword) {
-        return categoryService.searchByKeyword(keyword);
-    }
-    @GetMapping("/test")
-    public String test() {
-        return "CategoryController is working!";
-    }
 
-//    @GetMapping("/count")
-//    public long count() {
-//        return categoryService.countAll();
-//    }
     @PostMapping("/save")
     public Category save(@RequestBody Category category) {
-
         return categoryService.saveCategory(category);
     }
 
+    @PostMapping("/update/{id}")
+    public Category update(@PathVariable("id") Long id, @RequestBody Category updatedCategory) {
+        return categoryService.updateCategory(id, updatedCategory);
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        categoryService.deleteCategory(id);
+        return "Category deleted successfully!";
+    }
+
+    @GetMapping("/get/{id}")
+    public Category getById(@PathVariable("id") Long id) {
+        return categoryService.getCategoryById(id);
+    }
+
+    @GetMapping("/all")
+    public List<Category> getAll() {
+        return categoryService.getAllCategories();
+    }
+
+    @GetMapping("/search")
+    public List<Category> search(@RequestParam("keyword") String keyword) {
+        return categoryService.searchByKeyword(keyword);
+    }
+
     @GetMapping("/byName")
-    public Category getByName(@RequestParam String name) {
+    public Category getByName(@RequestParam("name") String name) {
         return categoryService.getByName(name);
     }
 }

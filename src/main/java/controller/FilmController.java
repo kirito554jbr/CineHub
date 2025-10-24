@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import service.FilmService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/films")
 public class FilmController {
@@ -16,30 +18,69 @@ public class FilmController {
 
     @PostMapping("/save")
     @ResponseBody
-    public String saveFilm(@RequestParam String title,
-                          @RequestParam String genre,
-                          @RequestParam int year) {
-//        Film film = new Film(title, genre, year);
-//        filmService.saveFilm(film);
-        return "Film saved successfully!";
+    public Film saveFilm(@RequestBody  Film film) {
+        return filmService.saveFilm(film);
+    }
+
+    @PostMapping("/update/{id}")
+    @ResponseBody
+    public Film updateFilm(@PathVariable("id") Long id, @RequestBody Film updatedFilm) {
+        return filmService.updateFilm(id ,updatedFilm);
+    }
+
+    @PostMapping("/delete/{id}")
+    @ResponseBody
+    public String deleteFilm(@PathVariable("id") Long id) {
+        filmService.deleteFilm(id);
+        return "Film deleted successfully!";
     }
 
     @GetMapping("/get/{id}")
     @ResponseBody
-    public Film getFilmById(@PathVariable Long id) {
+    public Film getFilmById(@PathVariable("id") Long id) {
         return filmService.getFilmById(id);
     }
 
     @GetMapping("/all")
     @ResponseBody
-    public java.util.List<Film> getAllFilms() {
+    public List<Film> getAllFilms() {
         return filmService.getFilms();
     }
 
-    @GetMapping("/test")
+    @GetMapping("/byTitle")
     @ResponseBody
-    public String test() {
-        return "FilmController is working!";
+    public Film getFilmByTitle(@RequestParam("title") String title) {
+        return filmService.getFilmByTitle(title);
+    }
+
+    @GetMapping("/byCategory")
+    @ResponseBody
+    public List<Film> getFilmsByCategory(@RequestParam("categoryName") String categoryName) {
+        return filmService.getFilmsByCategory(categoryName);
+    }
+
+    @GetMapping("/byDirector")
+    @ResponseBody
+    public List<Film> getFilmsByDirector(@RequestParam("directorName") String directorName) {
+        return filmService.getFilmsByDirector(directorName);
+    }
+
+    @GetMapping("/byReleaseYear")
+    @ResponseBody
+    public List<Film> getFilmByReleaseYear(@RequestParam("releaseYear") int releaseYear) {
+        return filmService.getFilmByReleaseYear(releaseYear);
+    }
+
+    @GetMapping("/byRating")
+    @ResponseBody
+    public List<Film> getFilmsByRating(@RequestParam("rating") Double rating){
+        return filmService.getFilmsByRating(rating);
+    }
+
+    @GetMapping("/byMinimumRating")
+    @ResponseBody
+    public List<Film> getFilmsByMinimumRating(@RequestParam("minRating") Double minRating) {
+        return filmService.getFilmsByMinumumRating(minRating);
     }
 
 }

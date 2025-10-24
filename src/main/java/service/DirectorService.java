@@ -25,8 +25,8 @@ public class DirectorService {
     }
 
     @Transactional
-    public Director updateDirector(Director updatedDirector) {
-        return directorRepository.findById(updatedDirector.getIdDirector()).map(director -> {
+    public Director updateDirector( Long id,Director updatedDirector) {
+        return directorRepository.findById(id).map(director -> {
             director.setFirstname(updatedDirector.getFirstname());
             director.setLastname(updatedDirector.getLastname());
             director.setNationality(updatedDirector.getNationality());

@@ -16,11 +16,6 @@ public class CategoryService {
 
 
     @Transactional
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
-    }
-
-    @Transactional
     public Category saveCategory(Category category) {
         validateCategory(category);
         return categoryRepository.save(category);
@@ -46,6 +41,11 @@ public class CategoryService {
     }
 
     @Transactional
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
+    @Transactional
     public Category getByName(String name) {
         return categoryRepository.findByName(name);
     }
@@ -54,6 +54,7 @@ public class CategoryService {
     public List<Category> searchByKeyword(String keyword) {
         return categoryRepository.searchByDescription(keyword);
     }
+
 
     private void validateCategory(Category category) {
         if (category.getName() == null || category.getName().trim().isEmpty()) {

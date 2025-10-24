@@ -16,6 +16,8 @@ public class Film {
     private int duration; // duration in minutes
     @Column(nullable = false, length = 1000)
     private String synopsis;
+    @Column(nullable = false)
+    private Double rating;// rating out of 10
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "idDirector")
     private Director director;
@@ -65,6 +67,14 @@ public class Film {
         this.synopsis = synopsis;
     }
 
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
     public Director getDirector() {
         return director;
     }
@@ -89,6 +99,7 @@ public class Film {
                 ", releaseYear=" + releaseYear +
                 ", duration=" + duration +
                 ", synopsis='" + synopsis + '\'' +
+                ", rating=" + rating +
                 ", director=" + director +
                 ", category=" + category +
                 '}';
