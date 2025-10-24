@@ -14,13 +14,16 @@
            https://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- Enable component scanning (entities, services, controllers, repositories) -->
-    <context:component-scan base-package="model,repository,service,controller"/>
+    <context:component-scan base-package="model,repository,service,controller,config"/>
 
     <!-- Enable Spring Data JPA repositories -->
     <jpa:repositories base-package="repository"/>
 
     <!-- Enable Spring MVC annotations -->
     <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
 
     <!-- DataSource configuration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
